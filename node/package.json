@@ -1,0 +1,17 @@
+{
+  "name": "godot-websockets",
+  "version": "0.0.1",
+  "description": "A simple websocket server to comunicate with a websocket client in godot engine",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "umarl",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.0",
+    "@types/ws": "^6.0.1",
+    "express": "^4.17.1",
+    "ws": "^7.0.1"
+  }
+}

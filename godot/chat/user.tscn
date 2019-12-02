@@ -1,0 +1,86 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://chat/user.gd" type="Script" id=1]
+[ext_resource path="res://fonts/B612Mono-Bold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://fonts/B612Mono-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://chat/icons/icon_edit.svg" type="Texture" id=4]
+[ext_resource path="res://chat/icons/icon_import_check.svg" type="Texture" id=5]
+[ext_resource path="res://chat/icons/icon_import_fail.svg" type="Texture" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 1.0
+content_margin_right = 1.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.0862745, 0.0823529, 0.101961, 1 )
+border_width_bottom = 2
+border_color = Color( 0.196078, 0.231373, 0.309804, 1 )
+expand_margin_top = 1.0
+shadow_size = 1
+
+[sub_resource type="DynamicFont" id=5]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 3 )
+
+[node name="user" type="PanelContainer"]
+margin_right = 238.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+FontBold = SubResource( 5 )
+
+[node name="Display" type="HBoxContainer" parent="."]
+margin_left = 1.0
+margin_top = 4.0
+margin_right = 237.0
+margin_bottom = 26.0
+
+[node name="LabelUsername" type="Label" parent="Display"]
+margin_top = 1.0
+margin_right = 204.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 6 )
+text = "Username"
+
+[node name="ButtonChangeName" type="Button" parent="Display"]
+margin_left = 208.0
+margin_right = 236.0
+margin_bottom = 22.0
+hint_tooltip = "Mudar nome"
+icon = ExtResource( 4 )
+flat = true
+
+[node name="Edit" type="HBoxContainer" parent="."]
+visible = false
+margin_right = 238.0
+margin_bottom = 26.0
+
+[node name="InputUsername" type="LineEdit" parent="Edit"]
+margin_right = 174.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 6 )
+text = "Username"
+max_length = 16
+
+[node name="ButtonConfirm" type="Button" parent="Edit"]
+margin_left = 178.0
+margin_right = 206.0
+margin_bottom = 26.0
+hint_tooltip = "Confirmar"
+icon = ExtResource( 5 )
+
+[node name="ButtonCancel" type="Button" parent="Edit"]
+margin_left = 210.0
+margin_right = 238.0
+margin_bottom = 26.0
+hint_tooltip = "Cancelar"
+icon = ExtResource( 6 )
+[connection signal="pressed" from="Display/ButtonChangeName" to="." method="_on_ButtonChangeName_pressed"]
+[connection signal="gui_input" from="Edit/InputUsername" to="." method="_on_InputUsername_gui_input"]
+[connection signal="pressed" from="Edit/ButtonConfirm" to="." method="_on_ButtonConfirm_pressed"]
+[connection signal="pressed" from="Edit/ButtonCancel" to="." method="_on_ButtonCancel_pressed"]

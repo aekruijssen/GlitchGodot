@@ -1,0 +1,126 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Websocket.gd" type="Script" id=1]
+[ext_resource path="res://chat/ChatWindow.tscn" type="PackedScene" id=2]
+[ext_resource path="res://fonts/B612Mono-Bold.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.121569, 0.145098, 0.192157, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxFlat" id=6]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0.196078, 0.231373, 0.309804, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Websocket" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChatWindow" parent="." instance=ExtResource( 2 )]
+
+[node name="Info" type="PanelContainer" parent="."]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+custom_styles/panel = SubResource( 1 )
+
+[node name="vbox" type="VBoxContainer" parent="Info"]
+margin_right = 819.2
+margin_bottom = 480.0
+
+[node name="separator1" type="HSeparator" parent="Info/vbox"]
+margin_right = 819.0
+margin_bottom = 60.0
+custom_styles/separator = SubResource( 2 )
+custom_constants/separation = 60
+
+[node name="LabelTitle" type="Label" parent="Info/vbox"]
+margin_top = 64.0
+margin_right = 819.0
+margin_bottom = 94.0
+custom_fonts/font = SubResource( 3 )
+text = "godot-websockets-chat"
+align = 1
+
+[node name="LabelSubtitle" type="Label" parent="Info/vbox"]
+margin_top = 98.0
+margin_right = 819.0
+margin_bottom = 118.0
+custom_fonts/font = SubResource( 4 )
+text = "- a very simple websocket chat -"
+align = 1
+
+[node name="separator2" type="HSeparator" parent="Info/vbox"]
+margin_top = 122.0
+margin_right = 819.0
+margin_bottom = 182.0
+custom_styles/separator = SubResource( 5 )
+custom_constants/separation = 60
+
+[node name="InfoRichtext" type="RichTextLabel" parent="Info/vbox"]
+margin_top = 186.0
+margin_right = 819.0
+margin_bottom = 382.0
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[center]made with [url=godot]Godot Engine[/url] and [url=node]Node.js[/url]
+server hosted at [url=glitch]Glitch.com[/url]
+the source code for both server and client is available [url=sourcecode]here[/url]
+
+
+you can find me at twitter [url=twitter]@uaumarlenne[/url][/center]"
+text = "made with Godot Engine and Node.js
+server hosted at Glitch.com
+the source code for both server and client is available here
+
+
+you can find me at twitter @uaumarlenne"
+
+[node name="ButtonCloseInfo" type="Button" parent="Info/vbox"]
+margin_left = 377.0
+margin_top = 386.0
+margin_right = 442.0
+margin_bottom = 416.0
+size_flags_horizontal = 4
+custom_styles/normal = SubResource( 6 )
+text = "x close"
+
+[node name="separator3" type="HSeparator" parent="Info/vbox"]
+margin_top = 420.0
+margin_right = 819.0
+margin_bottom = 480.0
+custom_styles/separator = SubResource( 5 )
+custom_constants/separation = 60
+
+[node name="TimerPing" type="Timer" parent="."]
+wait_time = 30.0
+[connection signal="meta_clicked" from="Info/vbox/InfoRichtext" to="." method="_on_InfoRichtext_meta_clicked"]
+[connection signal="pressed" from="Info/vbox/ButtonCloseInfo" to="." method="_on_ButtonCloseInfo_pressed"]
+[connection signal="timeout" from="TimerPing" to="." method="_on_TimerPing_timeout"]
